@@ -15,4 +15,26 @@ export const Logo = () => {
 	return logoElement;
 }
 
+export const Header = () => {
+	const headerElement = document.createElement('header');
 
+	const logo = Logo();
+	headerElement.appendChild(logo);
+
+	return headerElement;
+}
+
+const Footer = () => {
+	const footerElement = document.createElement('footer');
+
+}
+
+const Projects = () => {
+	const projectsElement = document.createElement('aside');
+
+}
+
+const List = () => {
+	const listElement = document.createElement('div');
+
+}
