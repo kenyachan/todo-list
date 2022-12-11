@@ -28,6 +28,28 @@ export const taskElement = (taskObj) => {
 	return element;
 }
 
+export const projectElement = (projectObj) => {
+	const element = document.createElement('div');
+	element.classList.add('project');
+
+	const projectName = document.createElement('p');
+	projectName.classList.add('project-name');
+	projectName.textContent = projectObj.getName();
+	element.appendChild(projectName);
+
+	const itemContainer = document.createElement('div');
+	itemContainer.classList.add('item-container');
+	element.appendChild(itemContainer);
+
+	// render item elements
+		
+	projectObj.getTasks().forEach(task => {
+		itemContainer.appendChild(taskElement(task));
+	});
+
+	return element;
+}
+
 export const listElement = (listObj) => {
 	const element = document.createElement('div');
 	element.classList.add('list');
@@ -49,3 +71,4 @@ export const listElement = (listObj) => {
 
 	return element;
 }
+
