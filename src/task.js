@@ -2,6 +2,7 @@ export const Task = (name) => {
 	
 	let completionStatus = 'Incomplete';
 	let priority = 'Normal';
+	let dueDate = '';
 
 	const getName = () => {
 		return name;
@@ -14,6 +15,10 @@ export const Task = (name) => {
 	const getPriority = () => {
 		return priority;
 	}
+
+	const getDueDate = () => {
+		return dueDate;
+	}	
 
 	const setName = (newName) => {
 		name = newName;
@@ -39,16 +44,22 @@ export const Task = (name) => {
 		priority = 'Low';
 	}
 
+	const setDueDate = (newDueDate) => {
+		dueDate = newDueDate;
+	}
+
 	return {
 		getName,
 		getStatus,
 		getPriority,
+		getDueDate,
 		setName,
 		setComplete,
 		setIncomplete,
 		setPriorityHigh,
 		setPriorityNormal,
 		setPriorityLow,
+		setDueDate,
 	};
 }
 
