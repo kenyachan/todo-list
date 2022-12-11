@@ -19,6 +19,36 @@ export const Task = (name) => {
 	const getDueDate = () => {
 		return dueDate;
 	}	
+	
+	const getDOMElement = () => {
+		const taskElement = document.createElement('div');
+		taskElement.classList.add('list-item');
+		
+		const itemName = document.createElement('p');
+		itemName.classList.add('item-name');
+		itemName.textContent = getName();
+		taskElement.appendChild(itemName);
+
+		const itemButtons = document.createElement('div');
+		itemButtons.classList.add('item-buttons');
+		taskElement.appendChild(itemButtons);
+
+		const itemPriority = document.createElement('p');
+		itemPriority.classList.add('item-priority');
+		itemPriority.textContent = getPriority();
+		itemButtons.appendChild(itemPriority);
+
+		const itemDueDate = document.createElement('p');
+		itemDueDate.classList.add('item-due-date');
+		itemDueDate.textContent = getDueDate();
+		itemButtons.appendChild(itemDueDate);
+
+		const itemCompleteButton = document.createElement('button');
+		itemCompleteButton.textContent = '.';
+		itemButtons.appendChild(itemCompleteButton);
+
+		return taskElement;
+	}
 
 	const setName = (newName) => {
 		name = newName;
@@ -53,6 +83,7 @@ export const Task = (name) => {
 		getStatus,
 		getPriority,
 		getDueDate,
+		getDOMElement,
 		setName,
 		setComplete,
 		setIncomplete,
