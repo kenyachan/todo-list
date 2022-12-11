@@ -6,6 +6,10 @@ export const List = (name) => {
 		name = newName;
 	}
 
+	const getName = () => {
+		return name;
+	}
+
 	const getTasks = () => {
 		return tasks;
 	}
@@ -24,6 +28,7 @@ export const List = (name) => {
 	
 	return {
 		setName,
+		getName,
 		getTasks,
 		add,
 		remove,
