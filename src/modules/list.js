@@ -1,35 +1,25 @@
-export const List = (name) => {
+export const List = () => {
 
-	const tasks = [];
-	
-	const setName = (newName) => {
-		name = newName;
-	}
+	const projects = [];	
 
-	const getName = () => {
-		return name;
-	}
-
-	const getTasks = () => {
-		return tasks;
+	const getProjects = () => {
+		return projects;
 	}	
 
-	const add = (item) => {
-		tasks.push(item);
+	const add = (project) => {
+		projects.push(project);
 	}
 
-	const remove = (item) => {
-		const index = tasks.indexOf(item);
+	const remove = (project) => {
+		const index = projects.indexOf(project);
 
 		if (index > -1) {
-			tasks.splice(index, 1);
+			projects.splice(index, 1);
 		}
 	}
 	
 	return {
-		setName,
-		getName,
-		getTasks,
+		getProjects,
 		add,
 		remove,
 	}

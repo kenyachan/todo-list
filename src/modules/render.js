@@ -1,23 +1,22 @@
 export const taskElement = (taskObj) => {
-	const element = document.createElement('div');
-	element.classList.add('list-item');
+	const element = document.createElement('li');
 	
 	const itemName = document.createElement('p');
-	itemName.classList.add('item-name');
+	itemName.classList.add('name');
 	itemName.textContent = taskObj.getName();
 	element.appendChild(itemName);
 
 	const itemButtons = document.createElement('div');
-	itemButtons.classList.add('item-buttons');
+	itemButtons.classList.add('buttons-container');
 	element.appendChild(itemButtons);
 
 	const itemPriority = document.createElement('p');
-	itemPriority.classList.add('item-priority');
+	itemPriority.classList.add('priority');
 	itemPriority.textContent = taskObj.getPriority();
 	itemButtons.appendChild(itemPriority);
 
 	const itemDueDate = document.createElement('p');
-	itemDueDate.classList.add('item-due-date');
+	itemDueDate.classList.add('due-date');
 	itemDueDate.textContent = taskObj.getDueDate();
 	itemButtons.appendChild(itemDueDate);
 
@@ -28,6 +27,7 @@ export const taskElement = (taskObj) => {
 	return element;
 }
 
+// list of tasks
 export const projectElement = (projectObj) => {
 	const element = document.createElement('div');
 	element.classList.add('project');
@@ -37,36 +37,37 @@ export const projectElement = (projectObj) => {
 	projectName.textContent = projectObj.getName();
 	element.appendChild(projectName);
 
-	const itemContainer = document.createElement('div');
-	itemContainer.classList.add('item-container');
-	element.appendChild(itemContainer);
+	const taskList = document.createElement('ul');
+	taskList.classList.add('task-list');
+	element.appendChild(taskList);
 
-	// render item elements
+	// render task elements
 		
 	projectObj.getTasks().forEach(task => {
-		itemContainer.appendChild(taskElement(task));
+		taskList.appendChild(taskElement(task));
 	});
 
 	return element;
 }
 
+// list of projects
 export const listElement = (listObj) => {
 	const element = document.createElement('div');
 	element.classList.add('list');
 
 	const listName = document.createElement('p');
-	listName.classList.add('list-name');
+	listName.classList.add('name');
 	listName.textContent = listObj.getName();
 	element.appendChild(listName);
 
-	const itemContainer = document.createElement('div');
-	itemContainer.classList.add('item-container');
+	const projectsList = document.createElement('ul');
+	projectsList.classList.add('project-list');
 	element.appendChild(itemContainer);
 
-	// render list elements
+	// render project elements
 		
-	listObj.getTasks().forEach(task => {
-		itemContainer.appendChild(taskElement(task));
+	listObj.getProjects().forEach(project => {
+		projectList.appendChild(project.getName());
 	});
 
 	return element;
