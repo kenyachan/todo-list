@@ -7,7 +7,7 @@ export const taskElement = (taskObj) => {
 	element.appendChild(itemName);
 
 	const itemButtons = document.createElement('div');
-	itemButtons.classList.add('buttons-container');
+	itemButtons.classList.add('buttonsContainer');
 	element.appendChild(itemButtons);
 
 	const itemPriority = document.createElement('p');
@@ -16,7 +16,7 @@ export const taskElement = (taskObj) => {
 	itemButtons.appendChild(itemPriority);
 
 	const itemDueDate = document.createElement('p');
-	itemDueDate.classList.add('due-date');
+	itemDueDate.classList.add('dueDate');
 	itemDueDate.textContent = taskObj.getDueDate();
 	itemButtons.appendChild(itemDueDate);
 
@@ -33,12 +33,12 @@ export const projectElement = (projectObj) => {
 	element.classList.add('project');
 
 	const projectName = document.createElement('p');
-	projectName.classList.add('project-name');
+	projectName.classList.add('projectName');
 	projectName.textContent = projectObj.getName();
 	element.appendChild(projectName);
 
 	const taskList = document.createElement('ul');
-	taskList.classList.add('task-list');
+	taskList.classList.add('taskList');
 	element.appendChild(taskList);
 
 	// render task elements
@@ -55,19 +55,18 @@ export const listElement = (listObj) => {
 	const element = document.createElement('div');
 	element.classList.add('list');
 
-	const listName = document.createElement('p');
-	listName.classList.add('name');
-	listName.textContent = listObj.getName();
-	element.appendChild(listName);
+	const projectList = document.createElement('ul');
+	projectList.classList.add('project-list');
+	element.appendChild(projectList);
 
-	const projectsList = document.createElement('ul');
-	projectsList.classList.add('project-list');
-	element.appendChild(itemContainer);
-
-	// render project elements
+	// render projects
 		
 	listObj.getProjects().forEach(project => {
-		projectList.appendChild(project.getName());
+		let listItem = document.createElement('li');
+
+		listItem.textContent = project.getName();
+
+		projectList.appendChild(listItem);
 	});
 
 	return element;
