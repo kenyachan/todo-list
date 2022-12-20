@@ -1,4 +1,4 @@
-export const Task = (name) => {
+export const newTask = (name) => {
 	
 	let completionStatus = 'Incomplete';
 	let priority = 'Normal';
