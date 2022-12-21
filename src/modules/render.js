@@ -1,3 +1,18 @@
+export const listIcon = () => {
+	const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	
+	icon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+	icon.setAttribute('width', '48px');
+	icon.setAttribute('height', '48px');
+	icon.setAttribute('viewBox', '0 0 48 48');
+
+	const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+	path.setAttribute('d', 'M7.5 34q-.65 0-1.075-.425Q6 33.15 6 32.5q0-.65.425-1.075Q6.85 31 7.5 31q.65 0 1.075.425Q9 31.85 9 32.5q0 .65-.425 1.075Q8.15 34 7.5 34Zm0-8.5q-.65 0-1.075-.425Q6 24.65 6 24q0-.65.425-1.075Q6.85 22.5 7.5 22.5q.65 0 1.075.425Q9 23.35 9 24q0 .65-.425 1.075-.425.425-1.075.425Zm0-8.5q-.65 0-1.075-.425Q6 16.15 6 15.5q0-.65.425-1.075Q6.85 14 7.5 14q.65 0 1.075.425Q9 14.85 9 15.5q0 .65-.425 1.075Q8.15 17 7.5 17Zm7 17v-3H42v3Zm0-8.5v-3H42v3Zm0-8.5v-3H42v3Z');
+	icon.appendChild(path);
+
+	return icon;
+}
+
 export const taskElement = (taskObj) => {
 	const element = document.createElement('li');
 	
@@ -56,17 +71,28 @@ export const listElement = (listObj) => {
 	element.classList.add('list');
 
 	const projectList = document.createElement('ul');
-	projectList.classList.add('project-list');
+	projectList.classList.add('projectList');
 	element.appendChild(projectList);
 
 	// render projects
 		
 	listObj.getProjects().forEach(project => {
-		let listItem = document.createElement('li');
 
-		listItem.textContent = project.getName();
-
+		const listItem = document.createElement('li');
 		projectList.appendChild(listItem);
+
+		const listItemContainer = document.createElement('div');
+		listItemContainer.classList.add('listItem-inner');
+		listItem.appendChild(listItemContainer);
+
+		const listItemIcon = document.createElement('span');
+		const icon = listIcon();
+		listItemIcon.appendChild(icon);
+		listItemContainer.appendChild(listItemIcon);
+
+		const listItemText = document.createElement('span');
+		listItemText.textContent = project.getName();
+		listItemContainer.appendChild(listItemText);
 	});
 
 	return element;
