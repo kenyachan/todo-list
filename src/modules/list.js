@@ -1,4 +1,4 @@
-export const newList = () => {
+export const List = (() => {
 
 	const projects = [];	
 
@@ -23,5 +23,5 @@ export const newList = () => {
 		add,
 		remove,
 	}
-}
+})();
 
