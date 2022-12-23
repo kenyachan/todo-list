@@ -50,14 +50,14 @@ export const taskList = () => {
 }
 
 // renders a project Element with empty task list
-export const projectElement = (projectObj) => {
+export const projectElement = (projectName) => {
 	const element = document.createElement('div');
 	element.classList.add('project');
 
-	const projectName = document.createElement('p');
-	projectName.classList.add('projectName');
-	projectName.textContent = projectObj.getName();
-	element.appendChild(projectName);
+	const projectNameElement = document.createElement('p');
+	projectNameElement.classList.add('projectName');
+	projectNameElement.textContent = projectName;
+	element.appendChild(projectNameElement);
 
 	const taskList = document.createElement('ul');
 	taskList.classList.add('taskList');
