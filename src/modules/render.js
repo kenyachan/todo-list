@@ -66,6 +66,25 @@ export const projectElement = (projectName) => {
 	return element;
 }
 
+export const projectItemElement = (projectName) => {
+	const element = document.createElement('li');
+
+	const listItemInner = document.createElement('div');
+	listItemInner.classList.add('listItem-inner');
+	element.appendChild(listItemInner);
+
+	const listItemIcon = document.createElement('span');
+	const icon = listIcon();
+	listItemIcon.appendChild(icon);
+	listItemInner.appendChild(listItemIcon);
+
+	const listItemText = document.createElement('p');
+	listItemText.textContent = projectName;
+	listItemInner.appendChild(listItemText);
+
+	return element;
+}
+
 // list of projects
 export const listElement = (listObj) => {
 	const element = document.createElement('div');
@@ -74,26 +93,10 @@ export const listElement = (listObj) => {
 	const projectList = document.createElement('ul');
 	projectList.classList.add('projectList');
 	element.appendChild(projectList);
-
-	// render projects
 		
 	listObj.getProjects().forEach(project => {
-
-		const listItem = document.createElement('li');
+		const listItem = projectItemElement(project.getName());
 		projectList.appendChild(listItem);
-
-		const listItemContainer = document.createElement('div');
-		listItemContainer.classList.add('listItem-inner');
-		listItem.appendChild(listItemContainer);
-
-		const listItemIcon = document.createElement('span');
-		const icon = listIcon();
-		listItemIcon.appendChild(icon);
-		listItemContainer.appendChild(listItemIcon);
-
-		const listItemText = document.createElement('span');
-		listItemText.textContent = project.getName();
-		listItemContainer.appendChild(listItemText);
 	});
 
 	return element;
