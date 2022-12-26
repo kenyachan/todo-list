@@ -44,7 +44,7 @@ export const taskElement = (taskObj) => {
 
 export const taskListElement = (projectName) => {
 	const element = document.createElement('div');
-	element.classList.add('project');
+	element.classList.add('taskPane');
 
 	const projectNameElement = document.createElement('p');
 	projectNameElement.classList.add('projectName');
@@ -79,7 +79,7 @@ export const projectListItemElement = (projectName) => {
 
 export const projectListElement = () => {
 	const element = document.createElement('div');
-	element.classList.add('list');
+	element.classList.add('projectListPane');
 
 	const projectListElement = document.createElement('ul');
 	projectListElement.classList.add('projectList');
