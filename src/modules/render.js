@@ -42,15 +42,7 @@ export const taskElement = (taskObj) => {
 	return element;
 }
 
-export const taskList = () => {
-	const element = document.createElement('ul');
-	element.classList.add('taskList');
-
-	return element;
-}
-
-// renders a project Element with empty task list
-export const projectElement = (projectName) => {
+export const taskListElement = (projectName) => {
 	const element = document.createElement('div');
 	element.classList.add('project');
 
@@ -66,7 +58,7 @@ export const projectElement = (projectName) => {
 	return element;
 }
 
-export const projectItemElement = (projectName) => {
+export const projectListItemElement = (projectName) => {
 	const element = document.createElement('li');
 
 	const listItemInner = document.createElement('div');
@@ -85,19 +77,13 @@ export const projectItemElement = (projectName) => {
 	return element;
 }
 
-// list of projects
-export const listElement = (listObj) => {
+export const projectListElement = () => {
 	const element = document.createElement('div');
 	element.classList.add('list');
 
-	const projectList = document.createElement('ul');
-	projectList.classList.add('projectList');
-	element.appendChild(projectList);
-		
-	listObj.getProjects().forEach(project => {
-		const listItem = projectItemElement(project.getName());
-		projectList.appendChild(listItem);
-	});
+	const projectListElement = document.createElement('ul');
+	projectListElement.classList.add('projectList');
+	element.appendChild(projectListElement);
 
 	return element;
 }
