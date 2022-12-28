@@ -1,8 +1,15 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const Task = (() => {
 	const create = (name) => {	
 		let completionStatus = 'Incomplete';
 		let priority = 'Normal';
 		let dueDate = '';
+		const _uuid = uuidv4();
+
+		const uuid = () => {
+			return _uuid;
+		}
 
 		const getName = () => {
 			return name;
@@ -49,6 +56,7 @@ export const Task = (() => {
 		}
 	
 		return {
+			uuid,
 			getName,
 			getStatus,
 			getPriority,

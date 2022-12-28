@@ -15,6 +15,7 @@ export const listIcon = () => {
 
 export const taskElement = (taskObj) => {
 	const element = document.createElement('li');
+	element.dataset.uuid = taskObj.uuid();
 	
 	const itemName = document.createElement('p');
 	itemName.classList.add('name');
