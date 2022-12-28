@@ -42,7 +42,7 @@ export const taskElement = (taskObj) => {
 	return element;
 }
 
-export const taskListElement = (projectName) => {
+export const taskPaneElement = (projectName) => {
 	const element = document.createElement('div');
 	element.classList.add('taskPane');
 
@@ -77,13 +77,16 @@ export const projectListItemElement = (projectName) => {
 	return element;
 }
 
-export const projectListElement = () => {
+export const projectPaneElement = () => {
 	const element = document.createElement('div');
-	element.classList.add('projectListPane');
+	element.classList.add('projectPane');
 
-	const projectListElement = document.createElement('ul');
-	projectListElement.classList.add('projectList');
-	element.appendChild(projectListElement);
+	return element;
+}
+
+export const projectListElement = () => {
+	const element = document.createElement('ul');
+	element.classList.add('projectList');
 
 	return element;
 }
