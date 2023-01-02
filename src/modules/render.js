@@ -2,7 +2,7 @@ import * as icons from './icons';
 
 export const taskElement = (taskObj) => {
 	const element = document.createElement('li');
-	element.dataset.uuid = taskObj.uuid();
+	//element.dataset.uuid = taskObj.uuid();
 
 	const itemCompleteButton = document.createElement('input');
 	itemCompleteButton.setAttribute('type', 'checkbox');
