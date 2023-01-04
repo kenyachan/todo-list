@@ -1,7 +1,7 @@
 export const Task = (() => {
 	const create = (name) => {	
 		let completionStatus = 'Incomplete';
-		let priority = 'Normal';
+		let priority = 'normal';
 		let dueDate = '';
 
 		const getName = () => {
