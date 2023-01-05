@@ -1,64 +1,76 @@
+import { format, isMatch } from 'date-fns';
+
 export const Task = (() => {
-	const create = (name) => {	
-		let completionStatus = 'Incomplete';
-		let priority = 'normal';
-		let dueDate = '';
+	const create = (_name) => {	
+		let _completionStatus = false;
+		let _priority = 'Normal';
+		let _dueDate = '';
 
 		const getName = () => {
-			return name;
+			return _name;
 		}
 
-		const getStatus = () => {
-			return completionStatus;
+		const getCompletionStatus = () => {
+			return _completionStatus;
 		}
 
 		const getPriority = () => {
-			return priority;
+			return _priority;
 		}
 	
 		const getDueDate = () => {
-			return dueDate;
+			return _dueDate;
 		}	
 
+		const getDueDateForDisplay = () => {
+			return format(new Date(_dueDate), 'dd/MM/yyyy');
+		}
+
 		const setName = (newName) => {
-			name = newName;
+			if (typeof newName != 'string') {
+				throw new Error('New task name is not a string');
+			}
+
+			_name = newName;
 		}
 	
-		const setComplete = () => {
-			completionStatus = 'Complete';
+		const setCompletionStatus = (completionStatus) => {
+			if (typeof completionStatus != 'boolean') {
+				throw new Error('Setting completion status must be a boolean');
+			}
+
+			_completionStatus = completionStatus;
 		}
-	
-		const setIncomplete = () => {
-			completionStatus = 'Incomplete';
-		}
-	
-		const setPriorityHigh = () => {
-			priority = 'High';
-		}
-	
-		const setPriorityNormal = () => {
-			priority = 'Normal';
-		}
-	
-		const setPriorityLow = () => {
-			priority = 'Low';
+
+		const setPriority = (newPriority) => {
+			const validPriorities = ['high', 'normal', 'low'];
+
+			if (!validPriorities.includes(newPriority.toLowerCase())) {
+				throw new Error(`Set priority must value must be ${validPriorities}`);
+			}
+
+			_priority = newPriority;
 		}
 	
 		const setDueDate = (newDueDate) => {
-			dueDate = newDueDate;
+			const requiredDateFormat = 'yyyy-MM-dd';
+
+			if (!isMatch(newDueDate, requiredDateFormat)) {
+				throw new Error(`Due date must be in format ${requiredDateFormat}`);
+			}
+
+			_dueDate =  newDueDate;
 		}
 	
 		return {
 			getName,
-			getStatus,
+			getCompletionStatus,
 			getPriority,
 			getDueDate,
+			getDueDateForDisplay,
 			setName,
-			setComplete,
-			setIncomplete,
-			setPriorityHigh,
-			setPriorityNormal,
-			setPriorityLow,
+			setCompletionStatus,
+			setPriority,
 			setDueDate,
 		};
 	}
