@@ -1,4 +1,5 @@
 import * as render from './modules/render';
+import { Modal } from './modules/modal';
 
 export const buildHeaderComponent = (node) => {
 	let headerElement = render.header();
@@ -48,13 +49,13 @@ export const buildTaskPaneComponent = (projectName, node) => {
 	return taskPaneElement;
 }
 	
-export const buildTaskComponent = (taskItem, node) => {
+export const buildTaskComponent = (project, taskItem, node) => {
 	let taskElement = render.taskElement(taskItem);
 	
 	let editBtn = taskElement.querySelector('.editButton');
 	editBtn.addEventListener('click', event => {
 		let bodyElement = document.querySelector('body');
-		buildEditModal(event.currentTarget.parentElement, taskItem, bodyElement); 
+		buildEditModal(project, event.currentTarget.parentElement, taskItem, bodyElement); 
 	});	
 
 	if (node !== undefined) {
@@ -64,9 +65,11 @@ export const buildTaskComponent = (taskItem, node) => {
 	return taskElement;
 }
 
-export const buildAllTaskComponents = (taskList, node) => {
+export const buildAllTaskComponents = (project, node) => {
+	let taskList = project.getTasks();
+
 	taskList.forEach(task => {
-		node.appendChild(buildTaskComponent(task, node));
+		node.appendChild(buildTaskComponent(project, task, node));
 	});
 
 	return node;
@@ -95,57 +98,57 @@ export const buildAllProjectItemComponents = (projectList, node) => {
 }
 
 const loadTasks = (project) => {
-	let taskList = project.getTasks();
+	//let taskList = project.getTasks();
 	let taskPane = buildTaskPaneComponent(project.getName());
 
 	let taskListElement = taskPane.querySelector('.taskList');
-	buildAllTaskComponents(taskList, taskListElement);
+	buildAllTaskComponents(project, taskListElement);
 
 	let oldTaskPaneElement = document.querySelector('.taskPane');
 	oldTaskPaneElement.replaceWith(taskPane);
 }
 
-export const buildEditModal = (taskElement, taskObj, node) => {
-	let modal = render.editModal();
+export const buildEditModal = (project, taskElement, taskObj, node) => {
+	let modalElement = render.editModal();
+	let modal = Modal.create(modalElement);
 
-	let taskNameInput = modal.querySelector('input[name="taskName"]');
-	taskNameInput.value = taskObj.getName();
+	modal.taskNameInput.value = taskObj.getName();
+	modal.priorityInput.value = taskObj.getPriority().toLowerCase();
+	modal.dueDateInput.value = taskObj.getDueDate();
+	modal.completeCheck.checked = taskObj.getCompletionStatus();
 
-	let priorityInput = modal.querySelector('select[name="priority"]');
-	priorityInput.value = taskObj.getPriority().toLowerCase();
-
-	let dueDateInput = modal.querySelector('input[name="dueDate"]');
-	dueDateInput.value = taskObj.getDueDate();
-
-	let completeCheck = modal.querySelector('input[name="switch"]');
-	completeCheck.checked = taskObj.getCompletionStatus();
-
-	let overlay = modal.querySelector('.overlay');
-	overlay.addEventListener('click', () => {
-		modal.remove();
+	modal.overlay.addEventListener('click', () => {
+		modalElement.remove();
 	});
 
-	let updateBtn = modal.querySelector('#updateTaskBtn');
-	updateBtn.addEventListener('click', () => {
-		taskObj.setName(taskNameInput.value);
-		taskObj.setPriority(priorityInput.value);
-		taskObj.setDueDate(dueDateInput.value);
-		taskObj.setCompletionStatus(completeCheck.checked);
-
-		taskElement.querySelector('.name').textContent = taskObj.getName();
-		taskElement.querySelector('.priority').textContent = titleCase(taskObj.getPriority());
-		taskElement.querySelector('.dueDate').textContent = taskObj.getDueDateForDisplay();
-		taskElement.querySelector('.complete').checked = taskObj.getCompletionStatus();
-		modal.remove();
+	modal.updateBtn.addEventListener('click', () => {
+		updateTask(modal, taskObj, taskElement);
+		modalElement.remove();
 
 	});
 
-	let cancelBtn = modal.querySelector('#cancelBtn');
-	cancelBtn.addEventListener('click', () => {
-		modal.remove();
+	modal.cancelBtn.addEventListener('click', () => {
+		modalElement.remove();
 	});
 
-	node.appendChild(modal);
+	modal.deleteBtn.addEventListener('click', () => {
+		deleteTask(project, taskObj, taskElement);
+		modalElement.remove();
+	});
+
+	node.appendChild(modalElement);
+}
+
+const updateTask = (modal, taskObj, taskElement) => {
+	taskObj.setName(modal.taskNameInput.value);
+	taskObj.setPriority(modal.priorityInput.value);
+	taskObj.setDueDate(modal.dueDateInput.value);
+	taskObj.setCompletionStatus(modal.completeCheck.checked);
+
+	taskElement.querySelector('.name').textContent = taskObj.getName();
+	taskElement.querySelector('.priority').textContent = titleCase(taskObj.getPriority());
+	taskElement.querySelector('.dueDate').textContent = taskObj.getDueDateForDisplay();
+	taskElement.querySelector('.complete').checked = taskObj.getCompletionStatus();
 }
 
 function titleCase(str) {
@@ -154,3 +157,11 @@ function titleCase(str) {
   	}).join(' ');
 }
 
+const deleteTask = (project, taskObj, taskElement) => {
+	let confirmed = true; // need to create a function to ask for confirmation
+
+	if (confirmed === true) {
+		project.remove(taskObj);
+		taskElement.remove();
+	}
+}

@@ -6,6 +6,7 @@ export const taskElement = (taskObj) => {
 	const itemCompleteButton = document.createElement('input');
 	itemCompleteButton.classList.add('complete');
 	itemCompleteButton.setAttribute('type', 'checkbox');
+	itemCompleteButton.checked = taskObj.getCompletionStatus();
 	element.appendChild(itemCompleteButton);
 
 	const itemName = document.createElement('p');
@@ -159,6 +160,12 @@ const modalDialog = () => {
 	cancelButton.setAttribute('type', 'button');
 	cancelButton.textContent = 'Cancel';
 	editForm.appendChild(cancelButton);
+
+	const deleteButton = document.createElement('button');
+	deleteButton.id = 'deleteBtn';
+	deleteButton.setAttribute('type', 'button');
+	deleteButton.textContent = 'Delete';
+	editForm.appendChild(deleteButton);
 
 	return modalDialog;
 }
