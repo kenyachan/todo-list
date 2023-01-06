@@ -1,0 +1,187 @@
+:root {
+	--green: rgb(147, 220, 0);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+li {
+    list-style: none;
+}
+
+main {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+header {
+    background-color: royalblue;
+    padding: 1rem 2rem;
+}
+
+footer {
+    background-color: royalblue;
+    padding: 1rem 2rem;
+    color: whitesmoke;
+}
+
+footer a {
+    text-decoration: none;
+    color: yellow;
+}
+
+.projectPane {
+    background-color: whitesmoke;
+    padding: 2rem;
+}
+
+.taskPane {
+    padding: 2rem;
+}
+
+.logo {
+    color: whitesmoke;
+}
+
+
+
+.list-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px 20px;
+	gap: 1rem;
+
+	/* need to adjust this */
+	max-width: 800px;
+}
+
+
+.list-item .buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 30%;
+	gap: 1rem;
+}
+
+/* Switch and label positioning */
+.switch-widget {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+}
+
+.switch-widget > input[type="checkbox"] {
+    grid-column: 1 / 2;
+}
+
+.switch-widget > label {
+    grid-column: 2 / 3;
+    display: grid;
+    align-items: center;
+}
+
+/* Switch Styling */
+.switch-widget input[type="checkbox"] {
+    appearance: none;
+    width: 37px;
+    height: 12px;
+    border-radius: 15px;
+    background-color: lightgrey;
+    position: relative;
+    transition: background-color 400ms ease;
+}
+
+/* Switch background when position is 'on' */
+.switch-widget input[type="checkbox"]:checked {
+    background-color: var(--green, rgb(147, 220, 0));
+    transition: background-color 400ms ease;
+}
+
+/* Controls how far the slider moves */
+.switch-widget input[type="checkbox"]:checked::before {
+    left: 19px;
+    transition: left 200ms;
+}
+
+/* slider pseudo element styling and initial position */
+.switch-widget input[type="checkbox"]::before {
+    width: 16px;
+    height: 16px;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    background-color: white;
+    content: '';
+
+    /* Initial position */
+    position: absolute;
+    top: -3px;
+    left: 0px;
+
+    transition: left 200ms;
+}
+
+/* || Label - Animation for toggling label */
+
+.switch-widget input[type="checkbox"] ~ label .off,
+.switch-widget input[type="checkbox"]:checked ~ label .on {
+    opacity: 1;
+    transition: opacity 100ms;
+}
+
+.switch-widget input[type="checkbox"] ~ label .on,
+.switch-widget input[type="checkbox"]:checked ~ label .off {
+    opacity: 0;
+    transition: opacity 100ms;
+}
+
+/* Ensures labels overlap */
+.switch-widget label span {
+    position: absolute;
+}
+
+.modal-widget {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	z-index: 1;	
+}
+
+.modal-widget .overlay {
+	backdrop-filter: blur(3px) opacity(1);
+	height: 100%;
+	width: 100%;
+}
+
+.modal-dialog {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid grey;
+	background-color: white;
+	width: 25vw;
+	z-index: 2;
+	padding: 1rem 2rem;
+}
+
+.modal-widget .form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.modal-widget .form .inputItem {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+}
