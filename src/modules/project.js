@@ -19,7 +19,7 @@ export const Project = (() => {
 		}
 	
 		const remove = (task) => {
-			const index = task.indexOf(task);
+			const index = tasks.indexOf(task);
 	
 			if (index > -1) {
 				tasks.splice(index, 1);
