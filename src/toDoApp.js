@@ -150,10 +150,7 @@ const updateTask = (modal, taskObj, taskElement) => {
 	taskObj.setDueDate(modal.dueDateInput.value);
 	taskObj.setCompletionStatus(modal.completeCheck.checked);
 
-	taskElement.querySelector('.name').textContent = taskObj.getName();
-	taskElement.querySelector('.priority').textContent = titleCase(taskObj.getPriority());
-	taskElement.querySelector('.dueDate').textContent = taskObj.getDueDateForDisplay();
-	taskElement.querySelector('.complete').checked = taskObj.getCompletionStatus();
+	taskElement.replaceWith(render.taskElement(taskObj));
 }
 
 function titleCase(str) {
