@@ -153,12 +153,6 @@ const updateTask = (project, modal, taskObj, taskElement) => {
 	taskElement.replaceWith(buildTaskComponent(project, taskObj, ));
 }
 
-function titleCase(str) {
- 	return str.toLowerCase().split(' ').map(function(word) {
-   		return word.replace(word[0], word[0].toUpperCase());
-  	}).join(' ');
-}
-
 const deleteTask = (project, taskObj, taskElement) => {
 	let confirmed = true; // need to create a function to ask for confirmation
 

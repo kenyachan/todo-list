@@ -16,7 +16,7 @@ export const taskElement = (taskObj) => {
 
 	const itemPriority = document.createElement('p');
 	itemPriority.classList.add('priority');
-	itemPriority.textContent = taskObj.getPriority();
+	itemPriority.textContent = titleCase(taskObj.getPriority());
 	element.appendChild(itemPriority);
 
 	const itemDueDate = document.createElement('p');
@@ -268,4 +268,8 @@ export const switchWidget = (labelOnText, labelOffText) => {
 	return switchWidgetElement;
 }
 
-
+function titleCase(str) {
+	return str.toLowerCase().split(' ').map(function(word) {
+		  return word.replace(word[0], word[0].toUpperCase());
+	 }).join(' ');
+}
