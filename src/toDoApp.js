@@ -127,7 +127,7 @@ export const buildEditModal = (project, taskElement, taskObj, node) => {
 	});
 
 	modal.updateBtn.addEventListener('click', () => {
-		updateTask(modal, taskObj, taskElement);
+		updateTask(project, modal, taskObj, taskElement);
 		modalElement.remove();
 
 	});
@@ -144,13 +144,13 @@ export const buildEditModal = (project, taskElement, taskObj, node) => {
 	node.appendChild(modalElement);
 }
 
-const updateTask = (modal, taskObj, taskElement) => {
+const updateTask = (project, modal, taskObj, taskElement) => {
 	taskObj.setName(modal.taskNameInput.value);
 	taskObj.setPriority(modal.priorityInput.value);
 	taskObj.setDueDate(modal.dueDateInput.value);
 	taskObj.setCompletionStatus(modal.completeCheck.checked);
 
-	taskElement.replaceWith(render.taskElement(taskObj));
+	taskElement.replaceWith(buildTaskComponent(project, taskObj, ));
 }
 
 function titleCase(str) {
