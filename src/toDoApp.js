@@ -51,6 +51,11 @@ export const buildTaskPaneComponent = (projectName, node) => {
 	
 export const buildTaskComponent = (project, taskItem, node) => {
 	let taskElement = render.taskElement(taskItem);
+
+	let checkBox = taskElement.querySelector('.complete');
+	checkBox.addEventListener('change', () => {
+		taskItem.setCompletionStatus(checkBox.checked);
+	});
 	
 	let editBtn = taskElement.querySelector('.editButton');
 	editBtn.addEventListener('click', event => {
