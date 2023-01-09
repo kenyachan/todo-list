@@ -80,11 +80,20 @@ export const buildAllTaskComponents = (project, node) => {
 	return node;
 }
 
-export const buildProjectItemComponent = (projectItem, node) => {
+export const buildProjectItemComponent = (projectListObj, projectItem, node) => {
 	const projectItemElement = render.projectListItemElement(projectItem.getName());
 
-	projectItemElement.addEventListener('click', () => {
+	const listItemInner = projectItemElement.querySelector('.listItem-inner');
+	listItemInner.addEventListener('click', () => {
 		loadTasks(projectItem);
+	});
+
+	const deleteButton = projectItemElement.querySelector('.deleteBtn');
+	deleteButton.addEventListener('click', event => {
+		deleteProject(projectListObj, projectItem, event.currentTarget.parentElement);
+
+
+		// need to check that project being deleted isn't the active project. If it is, change load another project
 	});
 
 	if (node !== undefined) {
@@ -94,9 +103,10 @@ export const buildProjectItemComponent = (projectItem, node) => {
 	return projectItemElement;
 }
 
-export const buildAllProjectItemComponents = (projectList, node) => {
-	projectList.forEach(project => {
-		node.appendChild(buildProjectItemComponent(project, node));
+export const buildAllProjectItemComponents = (projectListObj, node) => {
+	let projects = projectListObj.getProjects();
+	projects.forEach(project => {
+		node.appendChild(buildProjectItemComponent(projectListObj, project, node));
 	});
 
 	return node;
@@ -151,6 +161,20 @@ const updateTask = (project, modal, taskObj, taskElement) => {
 	taskObj.setCompletionStatus(modal.completeCheck.checked);
 
 	taskElement.replaceWith(buildTaskComponent(project, taskObj, ));
+}
+
+const deleteProject = (projectList, projectObj, projectElement) => {
+
+	
+
+	let confirmed = true; // need to create a function to ask for confirmation
+
+	if (confirmed === true) {
+		projectList.remove(projectObj);
+		projectElement.remove();
+
+		//if deleted project is 'active', open default project
+	}
 }
 
 const deleteTask = (project, taskObj, taskElement) => {

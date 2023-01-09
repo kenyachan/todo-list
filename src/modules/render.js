@@ -66,6 +66,13 @@ export const projectListItemElement = (projectName) => {
 	listItemText.textContent = projectName;
 	listItemInner.appendChild(listItemText);
 
+	const deleteButton = document.createElement('button');
+	deleteButton.classList.add('deleteBtn', 'projectList-btn');
+	element.appendChild(deleteButton);
+
+	const deleteIcon = icons.remove();
+	deleteButton.appendChild(deleteIcon);
+
 	return element;
 }
 
