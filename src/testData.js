@@ -1,6 +1,5 @@
-import { Project } from './modules/project';
-import { Task } from './modules/task';
-import { List } from './modules/list';
+import { newProject } from './modules/project';
+import { newTask } from './modules/task';
 
 const projectNames = ['My first project', 'My second project', 'My third project', 'My fourth project'];
 const taskLists = [
@@ -10,30 +9,22 @@ const taskLists = [
 	['Do some vague thing', 'Do some other vague thing', 'Keep doing stuff']
 ];
 
-export const TestData = (() => {
-	function create() {
-		let listIndex = 0;
-		projectNames.forEach(projectName => {
-			let project = Project.create(projectName);
+export function createTestData(projectsList) {
+	let listIndex = 0;
 
-			taskLists[listIndex].forEach(taskName => {
-				let task = Task.create(taskName);
-				
-				task.setDueDate('2100-01-01');
-				project.add(task);
+	projectNames.forEach(projectName => {
+		let project = newProject(projectName);
 
-			});
+		taskLists[listIndex].forEach(taskName => {
+			let task = newTask(taskName);
 
-			listIndex++;
-
-			List.add(project);
+			task.dueDate = '2100-01-01';
+			project.add(task);
 		});
 
-		return List;
-	}
+		listIndex++;
 
-	return {
-		create,
-	};
-})();
+		projectsList.add(project);
+	});
+}
 

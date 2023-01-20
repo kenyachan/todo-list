@@ -1,43 +1,36 @@
-export const Project = (() => {
-	const create = (name) => {
-		const tasks = [];
+export function newProject(name) {
+	const tasks = [];
+	
+	function add(task){
+		tasks.push(task);
+	}
 
-		const getTasks = () => {
-			return tasks;
-		}
-	
-		const getName = () => {
-			return name;
-		}
-	
-		const setName = () => {
-			name = newName;
-		}
-	
-		const add = (task) => {
-			tasks.push(task);
-		}
-	
-		const remove = (task) => {
-			const index = tasks.indexOf(task);
-	
-			if (index > -1) {
-				tasks.splice(index, 1);
-			}
-		}
-	
-		return {
-			getTasks,
-			getName,
-			setName,
-			add,
-			remove,
-		}
+	function remove(task) {
+		const index = tasks.indexOf(task);
+
+		if (index > -1)
+			tasks.splice(index, 1);
 	}
 
 	return {
-		create,
-	};
-})();
+		get tasks() {
+			return tasks;
+		},
+
+		get name() {
+			return name;
+		},
+		
+		set name(newName) {
+			if (typeof newName != 'string')
+				throw new Error('New task name is not a string');
+			
+			name = newName;
+		},
+
+		add,
+		remove,
+	}
+}
 
 

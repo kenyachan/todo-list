@@ -1,82 +1,92 @@
 import { format, isMatch } from 'date-fns';
 
-export const Task = (() => {
-	const create = (_name) => {	
-		let _completionStatus = false;
-		let _priority = 'Normal';
-		let _dueDate = '';
+export function newTask(name) {
+	let completionStatus;
+	let priority;
+	let dueDate;
 
-		const getName = () => {
-			return _name;
-		}
+	if (name !== undefined) {
+		completionStatus = false;
+		priority = 'Normal';
+		dueDate = '';
+	}
 
-		const getCompletionStatus = () => {
-			return _completionStatus;
-		}
+	function update(delta) {
+		if (delta.name !== undefined)
+			name = delta.name;
 
-		const getPriority = () => {
-			return _priority;
-		}
-	
-		const getDueDate = () => {
-			return _dueDate;
-		}	
+		if (delta.completionStatus !== undefined) 
+			completionStatus = delta.completionStatus;
 
-		const getDueDateForDisplay = () => {
-			return format(new Date(_dueDate), 'dd/MM/yyyy');
-		}
+		if (delta.priority !== undefined)
+			priority = delta.priority;
 
-		const setName = (newName) => {
-			if (typeof newName != 'string') {
-				throw new Error('New task name is not a string');
-			}
-
-			_name = newName;
-		}
-	
-		const setCompletionStatus = (completionStatus) => {
-			if (typeof completionStatus != 'boolean') {
-				throw new Error('Setting completion status must be a boolean');
-			}
-
-			_completionStatus = completionStatus;
-		}
-
-		const setPriority = (newPriority) => {
-			const validPriorities = ['high', 'normal', 'low'];
-
-			if (!validPriorities.includes(newPriority.toLowerCase())) {
-				throw new Error(`Set priority must value must be ${validPriorities}`);
-			}
-
-			_priority = newPriority;
-		}
-	
-		const setDueDate = (newDueDate) => {
-			const requiredDateFormat = 'yyyy-MM-dd';
-
-			if (!isMatch(newDueDate, requiredDateFormat)) {
-				throw new Error(`Due date must be in format ${requiredDateFormat}`);
-			}
-
-			_dueDate =  newDueDate;
-		}
-	
-		return {
-			getName,
-			getCompletionStatus,
-			getPriority,
-			getDueDate,
-			getDueDateForDisplay,
-			setName,
-			setCompletionStatus,
-			setPriority,
-			setDueDate,
-		};
+		if (delta.dueDate !== undefined)
+			dueDate = delta.dueDate;
 	}
 
 	return {
-		create,
-	};
-})();
+		get name() {
+			return  name;
+		},
+
+		get completionStatus() {
+			return completionStatus;
+		},
+
+		get priority() {
+			return priority;
+		},
+
+		get dueDate() {
+			return dueDate;
+		},
+
+		get friendlyDueDate() {
+			return dueDate === '' ?
+				'' :
+				format(new Date(dueDate), 'dd/MM/yyyy');
+		},
+
+		set name(newName) {
+			if (typeof newName != 'string')
+				throw new Error('New task name is not a string');
+
+			name = newName;
+		},
+
+		set completionStatus(newCompletionStatus) {
+			if (typeof newCompletionStatus != 'boolean')
+				throw new Error('Setting completion status must be a boolean');
+
+			completionStatus = newCompletionStatus;
+		},
+
+		set priority(newPriority) {
+			const validPriorities = ['high', 'normal', 'low'];
+
+			if (!validPriorities.includes(newPriority.toLowerCase()))
+					throw new Error(`Set priority must value must be ${validPriorities}`);
+			
+			priority = newPriority;
+		},
+
+		set dueDate(newDueDate) {
+			if (newDueDate === undefined || '') {
+				dueDate = '';
+
+				return;
+			}
+
+			const requiredDateFormat = 'yyyy-MM-dd';
+
+			if (!isMatch(newDueDate, requiredDateFormat))
+				throw new Error(`Due date must be in format ${requiredDateFormat}`);
+
+			dueDate =  newDueDate;
+		},
+
+		update,
+	}
+}
 
