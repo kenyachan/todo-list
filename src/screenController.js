@@ -266,11 +266,10 @@ export const screenController = (application) => {
 
 				let task = app.newTask(inputElement.value);
 				app.activeProject.add(task);
+				app.activeTask = task;
 				
 				let taskItem = createTaskItem(task);
 				parentNode.appendChild(taskItem);
-
-				app.activeTask = task;
 
 				closeWidget();
 			});
