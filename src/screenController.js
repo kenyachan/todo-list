@@ -134,13 +134,15 @@ export const screenController = (application) => {
 	const taskPane = (() => {
 		let parentNode;
 		let taskPaneElement;
-		let taskListElement;
 
 		function render() {
 			// render empty task pane
 			if (app.activeProject === undefined) {
 				let emptyTaskPaneElement = create.taskPaneElement();
-				taskPaneElement.replaceWith(emptyTaskPaneElement);
+				
+				taskPaneElement === undefined ?
+					parentNode.appendChild(emptyTaskPaneElement) : 
+					taskPaneElement.replaceWith(emptyTaskPaneElement);
 
 				return;
 			}
@@ -155,7 +157,7 @@ export const screenController = (application) => {
 			}
 
 			// render task list
-			taskListElement = taskPaneElement.querySelector('.taskList');
+			let taskListElement = taskPaneElement.querySelector('.taskList');
 			app.activeProject.tasks.forEach(task => {
 				let taskItem = createTaskItem(task);
 				taskListElement.appendChild(taskItem);
@@ -263,6 +265,8 @@ export const screenController = (application) => {
 				}
 
 				let task = app.newTask(inputElement.value);
+				app.activeProject.add(task);
+				
 				let taskItem = createTaskItem(task);
 				parentNode.appendChild(taskItem);
 
