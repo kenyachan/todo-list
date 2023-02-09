@@ -63,7 +63,7 @@ export const screenController = (application) => {
 
 			let addProjectButton = projectPaneElement.querySelector('.add-button');
 			addProjectButton.addEventListener('click', () => {
-				createProjectWidget(addProjectButton, projectListElement);
+				openCreateProjectWidget(addProjectButton, projectListElement);
 			});
 		}
 
@@ -86,7 +86,7 @@ export const screenController = (application) => {
 			return projectElement;
 		}
 
-		function createProjectWidget(buttonElement, parentNode) {
+		function openCreateProjectWidget(buttonElement, parentNode) {
 			let widgetElement = create.addProjectElement();
 			buttonElement.replaceWith(widgetElement);
 
@@ -96,7 +96,7 @@ export const screenController = (application) => {
 			let addButtonElement = widgetElement.querySelector('.add-button');
 			addButtonElement.addEventListener('click', () => {
 				if (validateInput(inputElement.value) === false) {
-					close();
+					closeWidget();
 					return;
 				}
 
@@ -164,7 +164,7 @@ export const screenController = (application) => {
 			// initiate add task button event listener
 			let addTaskButton = taskPaneElement.querySelector('.add-button');
 			addTaskButton.addEventListener('click', () => {
-				
+				openCreateTaskWidget(addTaskButton, taskListElement);			
 			});
 		}
 
@@ -245,6 +245,41 @@ export const screenController = (application) => {
 
 			function closeModal() {
 				modalElement.remove();
+			}
+		}
+
+		function openCreateTaskWidget(buttonElement, parentNode) {
+			let widgetElement = create.addTaskElement();
+			buttonElement.replaceWith(widgetElement);
+
+			let inputElement = widgetElement.querySelector('#addTask-input');
+			inputElement.focus();
+
+			let addButtonElement = widgetElement.querySelector('.add-button');
+			addButtonElement.addEventListener('click', () => {
+				if (validateInput(inputElement.value) === false) {
+					closeWidget();
+					return;
+				}
+
+				let task = app.newTask(inputElement.value);
+				let taskItem = createTaskItem(task);
+				parentNode.appendChild(taskItem);
+
+				app.activeTask = task;
+
+				closeWidget();
+			});
+
+			let cancelButtonElement = widgetElement.querySelector('.cancel-button');
+			cancelButtonElement.addEventListener('click', () => closeWidget());
+
+			function closeWidget() {
+				widgetElement.replaceWith(buttonElement);
+			}
+
+			function validateInput(inputString) {
+				return inputString.length > 0;
 			}
 		}
 
