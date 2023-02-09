@@ -81,7 +81,8 @@ export function newTask(name) {
 			const requiredDateFormat = 'yyyy-MM-dd';
 
 			if (!isMatch(newDueDate, requiredDateFormat))
-				throw new Error(`Due date must be in format ${requiredDateFormat}`);
+				//throw new Error(`Due date must be in format ${requiredDateFormat}`);
+				dueDate = '';
 
 			dueDate =  newDueDate;
 		},
