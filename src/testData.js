@@ -9,22 +9,18 @@ const taskLists = [
 	['Do some vague thing', 'Do some other vague thing', 'Keep doing stuff']
 ];
 
-export function createTestData(projectsList) {
+export function createTestData(app) {
 	let listIndex = 0;
 
 	projectNames.forEach(projectName => {
-		let project = newProject(projectName);
-
+		app.newProject(projectName);
+		
 		taskLists[listIndex].forEach(taskName => {
-			let task = newTask(taskName);
-
+			let task = app.activeProject.newTask(taskName);
 			task.dueDate = '2100-01-01';
-			project.add(task);
 		});
 
 		listIndex++;
-
-		projectsList.add(project);
 	});
 }
 

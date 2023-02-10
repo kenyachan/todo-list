@@ -1,3 +1,5 @@
+import { newTask as createTask } from './task';
+
 export function newProject(name) {
 	const tasks = [];
 	
@@ -5,11 +7,28 @@ export function newProject(name) {
 		tasks.push(task);
 	}
 
+	function newTask(name) {
+		let task = createTask(name);
+
+		tasks.push(task);
+
+		return task;
+	}
+
 	function remove(task) {
 		const index = tasks.indexOf(task);
 
 		if (index > -1)
 			tasks.splice(index, 1);
+	}
+
+	function findTask(index) {
+		if (tasks[index - 1] === undefined) {
+			console.log(`Task "${index}" does not exist`);
+			return;
+		}
+
+		return tasks[index - 1];
 	}
 
 	return {
@@ -29,8 +48,9 @@ export function newProject(name) {
 		},
 
 		add,
+		newTask,
 		remove,
+		findTask,
 	}
 }
-
 

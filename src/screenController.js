@@ -56,7 +56,7 @@ export const screenController = (application) => {
 
 			let projectListElement = projectPaneElement.querySelector('.projectList');
 
-			app.projectsList.projects.forEach(project => {
+			app.getProjects().forEach(project => {
 				let projectItem = createProjectItem(project);
 				projectListElement.appendChild(projectItem);
 			});
@@ -264,9 +264,8 @@ export const screenController = (application) => {
 					return;
 				}
 
-				let task = app.newTask(inputElement.value);
+				let task = app.activeProject.newTask(inputElement.value);
 				app.activeProject.add(task);
-				app.activeTask = task;
 				
 				let taskItem = createTaskItem(task);
 				parentNode.appendChild(taskItem);
