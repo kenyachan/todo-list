@@ -7,8 +7,10 @@ export function todoApp() {
 	let activeProject;
 
 	function findProject(number) {
-		if (projects[number - 1] === undefined)
-			throw new Error('Project does not exist');
+		if (projects[number - 1] === undefined) {
+			console.log(`Project ${number} does not exist`);
+			return;
+		}
 
 		return projects[number - 1];
 	}
