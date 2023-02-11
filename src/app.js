@@ -1,10 +1,16 @@
 import { newTask } from './modules/task';
 import { newProject as createProject } from './modules/project';
+import * as storage from './modules/storage';
 
 //app controller
 export function todoApp() {
 	const projects = [];
 	let activeProject;
+
+	storage.loadProjects(projects, createProject);
+
+	if (projects.length >= 1)
+		activeProject = projects[0];
 
 	function findProject(number) {
 		if (projects[number - 1] === undefined) {
@@ -38,6 +44,8 @@ export function todoApp() {
 
 		activeProject = project;
 		projects.push(project);
+
+		storage.addProject(project);
 
 		return project;
 	}
