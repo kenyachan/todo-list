@@ -265,8 +265,6 @@ export const screenController = (application) => {
 				}
 
 				let task = app.activeProject.newTask(inputElement.value);
-				app.activeProject.add(task);
-				
 				let taskItem = createTaskItem(task);
 				parentNode.appendChild(taskItem);
 
