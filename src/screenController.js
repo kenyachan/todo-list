@@ -175,12 +175,17 @@ export const screenController = (application) => {
 				task.completionStatus,
 				task.name,
 				task.priority,
-				task.friendlyDueDate
+				task.getFriendlyDueDate()
 			);
 
 			let checkbox = taskElement.querySelector('.complete');
 			checkbox.addEventListener('change', () => {
 				task.completionStatus = checkbox.checked;
+
+				let taskDelta = app.newTask();
+
+				taskDelta.completeStatus = checkbox.checked;
+				app.updateTask(task, taskDelta);
 			});
 
 			let editBtn = taskElement.querySelector('.editButton');
@@ -226,9 +231,10 @@ export const screenController = (application) => {
 
 			let updateButton = modalElement.querySelector('#updateTaskBtn');
 			updateButton.addEventListener('click', () => {
-				task.update(taskDelta);
+				app.updateTask(task, taskDelta);
 
 				let taskItem = createTaskItem(task);
+
 				taskElement.replaceWith(taskItem);
 				closeModal();
 			});
@@ -240,7 +246,7 @@ export const screenController = (application) => {
 
 			let deleteButton = modalElement.querySelector('#deleteBtn');
 			deleteButton.addEventListener('click', () => {
-				app.activeProject.remove(task);
+				app.removeTask(task);
 				taskElement.remove();
 				closeModal();
 			});
@@ -264,7 +270,8 @@ export const screenController = (application) => {
 					return;
 				}
 
-				let task = app.activeProject.newTask(inputElement.value);
+				//let task = app.activeProject.newTask(inputElement.value);
+				let task = app.newTask(inputElement.value);
 				let taskItem = createTaskItem(task);
 				parentNode.appendChild(taskItem);
 

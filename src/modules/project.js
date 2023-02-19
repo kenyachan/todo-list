@@ -1,34 +1,18 @@
 import { newTask as createTask } from './task';
 
 export function newProject(name) {
-	const tasks = [];
+	let tasks = [];
 	
+	function contains(taskName) {
+		return tasks.some(task => task.name === taskName);
+	}
+
 	function add(task){
-		tasks.push(task);
-	}
-
-	function newTask(name) {
-		let task = createTask(name);
-
-		tasks.push(task);
-
-		return task;
-	}
-
-	function remove(task) {
-		const index = tasks.indexOf(task);
-
-		if (index > -1)
-			tasks.splice(index, 1);
-	}
-
-	function findTask(index) {
-		if (tasks[index - 1] === undefined) {
-			console.log(`Task "${index}" does not exist`);
+		if (contains(task.name)) {
+			console.log(`Task with name '${task.name}' already exists.`);
 			return;
 		}
-
-		return tasks[index - 1];
+		tasks.push(task);
 	}
 
 	return {
@@ -36,6 +20,10 @@ export function newProject(name) {
 			return tasks;
 		},
 
+		set tasks(newTaskList) {
+			tasks = newTaskList;
+		},
+		
 		get name() {
 			return name;
 		},
@@ -47,10 +35,8 @@ export function newProject(name) {
 			name = newName;
 		},
 
+		contains,
 		add,
-		newTask,
-		remove,
-		findTask,
 	}
 }
 

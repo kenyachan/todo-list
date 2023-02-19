@@ -25,6 +25,12 @@ export function newTask(name) {
 			dueDate = delta.dueDate;
 	}
 
+	function getFriendlyDueDate() {
+		return dueDate === '' ?
+			'' :
+			format(new Date(dueDate), 'dd/MM/yyyy');
+	}
+
 	return {
 		get name() {
 			return  name;
@@ -40,12 +46,6 @@ export function newTask(name) {
 
 		get dueDate() {
 			return dueDate;
-		},
-
-		get friendlyDueDate() {
-			return dueDate === '' ?
-				'' :
-				format(new Date(dueDate), 'dd/MM/yyyy');
 		},
 
 		set name(newName) {
@@ -81,13 +81,13 @@ export function newTask(name) {
 			const requiredDateFormat = 'yyyy-MM-dd';
 
 			if (!isMatch(newDueDate, requiredDateFormat))
-				//throw new Error(`Due date must be in format ${requiredDateFormat}`);
 				dueDate = '';
 
 			dueDate =  newDueDate;
 		},
 
 		update,
+		getFriendlyDueDate,
 	}
 }
 

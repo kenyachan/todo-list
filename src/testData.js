@@ -16,7 +16,8 @@ export function createTestData(app) {
 		app.newProject(projectName);
 		
 		taskLists[listIndex].forEach(taskName => {
-			let task = app.activeProject.newTask(taskName);
+			//let task = app.activeProject.newTask(taskName);
+			let task = app.newTask(taskName);
 			task.dueDate = '2100-01-01';
 		});
 
