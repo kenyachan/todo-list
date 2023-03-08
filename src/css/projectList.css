@@ -1,0 +1,29 @@
+.projectList {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.projectList li {
+	display: flex;
+	justify-content: space-between;
+}
+
+.projectList .listItem-inner:hover {
+	outline: 1px solid orange;
+	cursor: pointer;
+}
+
+.projectList .listItem-inner {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.projectList svg {
+	height: 1.5rem;
+	width: 1.5rem;
+
+	position: relative;
+	top: 2px;
+}

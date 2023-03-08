@@ -8,10 +8,6 @@ body {
     min-height: 100vh;
 }
 
-li {
-    list-style: none;
-}
-
 main {
     display: flex;
     flex: 1 1 auto;
@@ -36,36 +32,23 @@ footer a {
 .projectPane {
     background-color: whitesmoke;
     padding: 2rem;
+    flex: 1;
+
 }
 
 .taskPane {
     padding: 2rem;
+    flex: 5;
 }
+
+
 
 .logo {
     color: whitesmoke;
 }
 
-
-
-.list-item {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: 10px 20px;
-	gap: 1rem;
-
-	/* need to adjust this */
-	max-width: 800px;
-}
-
-
-.list-item .buttons {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 30%;
-	gap: 1rem;
+li {
+    list-style: none;
 }
 
 /* Switch and label positioning */

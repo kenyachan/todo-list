@@ -1,6 +1,7 @@
 import './css/style.css';
 import './css/logo.css';
-import './css/list-item.css';
+import './css/taskList.css';
+import './css/projectList.css';
 import './css/app.css';
 import { todoApp } from './app.js';
 import { screenController } from './screenController';
